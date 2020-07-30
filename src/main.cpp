@@ -40,10 +40,12 @@ int main() {
    * TODO: Initialize the pid variable.
    */
 
+
+   // PID for steer
 // manually tuned 
- const double Kp = 0.14;
+  const double Kp = 0.12;
   const double Kd = 1.0;
-  const double Ki = 0.001;  
+  const double Ki = 0.0001;  
 
   pid.Init(Kp, Ki, Kd);
 
@@ -52,8 +54,6 @@ int main() {
  PID pid2;
 
    // PID for throttle
- 
-
   // manually tuned 
   const double Kp2 = 0.1;
   const double Kd2 = 0.0;
@@ -111,8 +111,11 @@ int main() {
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value 
                     << std::endl;
           json msgJson;
-          msgJson["steering_angle"] =  steer_value;
-          msgJson["throttle"] =  throttle_value;
+  
+    
+            msgJson["steering_angle"] =  steer_value;
+            msgJson["throttle"] =  throttle_value;
+          
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
